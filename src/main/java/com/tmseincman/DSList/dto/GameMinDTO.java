@@ -1,7 +1,9 @@
 package com.tmseincman.DSList.dto;
 
 import com.tmseincman.DSList.entities.Game;
+import com.tmseincman.DSList.projections.GameMinProjection;
 import jakarta.persistence.Column;
+import org.springframework.beans.BeanUtils;
 
 public class GameMinDTO {
 
@@ -20,6 +22,9 @@ public class GameMinDTO {
         this.year = entity.getYear();
         this.imgUrl = entity.getImgUrl();
         this.shortDescription = entity.getShortDescription();
+    }
+    public GameMinDTO(GameMinProjection projection){
+        BeanUtils.copyProperties(projection, this);
     }
 
     public Long getId() {
@@ -40,5 +45,25 @@ public class GameMinDTO {
 
     public String getShortDescription() {
         return shortDescription;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 }

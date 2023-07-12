@@ -4,9 +4,9 @@ package com.tmseincman.DSList.services;
 import com.tmseincman.DSList.dto.GameDTO;
 import com.tmseincman.DSList.dto.GameMinDTO;
 import com.tmseincman.DSList.entities.Game;
+import com.tmseincman.DSList.projections.GameMinProjection;
 import com.tmseincman.DSList.repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +29,12 @@ public class GameService {
     public GameDTO findByID(Long id){
         Game result = gameRepository.findById(id).get();
         GameDTO dto = new GameDTO(result);
+        return dto;
+    }
+    @Transactional(readOnly = true)
+    public List<GameMinDTO> findByList(Long listId){
+        List<GameMinProjection> result = gameRepository.searchByList(listId);
+        List<GameMinDTO> dto = result.stream().map(x -> new GameMinDTO(x)).toList();
         return dto;
     }
 }
